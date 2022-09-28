@@ -39,3 +39,8 @@
   width: 100%;
   padding: 20px;
 }
+
+.button.transparent {
+  color: rgba(148, 148, 160, 1);
+  background-color: transparent;
+}

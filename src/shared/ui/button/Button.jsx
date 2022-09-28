@@ -9,6 +9,7 @@ export const Button = (props) => {
     disabled = false,
     size = 'medium',
     onClick,
+    transparent = false,
   } = props
 
   return (
@@ -19,7 +20,8 @@ export const Button = (props) => {
       className={cn(
         styles.button,
         { [styles[size]]: size },
-        { [styles.disabled]: disabled }
+        { [styles.disabled]: disabled },
+        { [styles.transparent]: transparent }
       )}
     >
       {children}
