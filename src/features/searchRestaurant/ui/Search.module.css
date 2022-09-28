@@ -13,12 +13,4 @@
 
 .form input {
   width: 410px;
-  height: 61px;
-  padding: 18px;
-  border: 1px solid #c1c1cb;
-  border-radius: 15px;
-}
-
-.form input::placeholder {
-  color: #9494a0;
 }

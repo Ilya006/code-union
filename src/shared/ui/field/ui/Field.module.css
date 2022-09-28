@@ -1,0 +1,24 @@
+.field {
+  position: relative;
+}
+
+.input {
+  width: 100%;
+  padding: 18px 50px 18px 18px;
+  border: 1px solid #c1c1cb;
+  border-radius: 15px;
+  background-color: transparent;
+}
+
+.input::placeholder {
+  color: #9494a0;
+}
+
+.icon {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+}
