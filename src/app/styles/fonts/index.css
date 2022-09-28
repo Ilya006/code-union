@@ -1,7 +1,15 @@
 @font-face {
   font-family: 'FuturaPT';
-  src: local('./FuturaPT-Medium.ttf'), local('./FuturaPT-Medium'),
-    url('./FuturaPT-Medium.ttf'), url('./FuturaPT-Medium.woff') format('woff');
+  src: local('./Futura-Book.ttf'), local('./Futura-Book.woff'),
+    url('./Futura-Book.ttf'), url('./Futura-Book.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'FuturaPT';
+  src: local('./Futura-Medium.ttf'), local('./Futura-Medium.woff'),
+    url('./Futura-Medium.ttf'), url('./Futura-Medium.woff') format('woff');
   font-weight: 500;
   font-style: normal;
 }

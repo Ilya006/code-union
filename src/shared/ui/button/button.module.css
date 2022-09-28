@@ -23,6 +23,10 @@
   background-color: #666666;
 }
 
+.button:hover {
+  background-color: #4590e6;
+}
+
 /* size */
 .button.medium {
   padding: 9px 1.3rem;

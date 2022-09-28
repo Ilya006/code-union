@@ -1,0 +1,24 @@
+.box {
+  padding: 34px;
+  background: #f9fafb;
+  box-shadow: -30px 20px 70px rgba(28, 28, 30, 0.1);
+  border-radius: 25px;
+}
+
+.form {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.form input {
+  width: 410px;
+  height: 61px;
+  padding: 18px;
+  border: 1px solid #c1c1cb;
+  border-radius: 15px;
+}
+
+.form input::placeholder {
+  color: #9494a0;
+}

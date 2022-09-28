@@ -1,16 +1,16 @@
 import React from 'react'
-import { Button } from '../shared/ui/button'
+import { Routing } from 'pages/Router'
 import { withProvides } from './providers'
 import './styles/index.css'
 
 function App() {
-  return <>
-    <h2>hello</h2>
-    <Button size='full' >Найти</Button>
-  </>
+  return (
+    <div className="app">
+      <Routing />
+    </div>
+  )
 }
 
 const withProvide = withProvides(App)
 
-export {withProvide as App}
-
+export { withProvide as App }
