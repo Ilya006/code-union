@@ -2,7 +2,7 @@ import React from 'react'
 
 import { SearchRestaurant } from 'features'
 import { Header } from 'widgets/header'
-import { Container } from 'shared/ui'
+import { Container, Card } from 'shared/ui'
 import styles from './Home.module.css'
 
 export const Home = () => (
@@ -13,6 +13,25 @@ export const Home = () => (
         <Container>
           <h2>Найдите лучшее предложение от ресторана</h2>
           <SearchRestaurant />
+        </Container>
+      </section>
+
+      <section className={styles.sentence}>
+        <Container>
+          <h2>Популярные предложения</h2>
+          <p className={styles.subtitle}>
+            Предложения, которые любят наши клиенты
+          </p>
+          <div className={styles.list}>
+            <Card text="Один из крупнейших ресторанов.." />
+            <Card text="Один из крупнейших ресторанов.." />
+            <Card text="Один из крупнейших ресторанов.." />
+            <Card text="Один из крупнейших ресторанов.." />
+            <Card text="Один из крупнейших ресторанов.." />
+            <Card text="Один из крупнейших ресторанов.." />
+            <Card text="Один из крупнейших ресторанов.." />
+            <Card text="Один из крупнейших ресторанов.." />
+          </div>
         </Container>
       </section>
     </main>
