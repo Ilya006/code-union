@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button } from 'shared/ui/button'
+import { Button } from 'shared/ui'
 import { ReactComponent as LocationImg } from './assets/location.svg'
 import styles from './Card.module.css'
 

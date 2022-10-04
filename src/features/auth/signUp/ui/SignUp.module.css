@@ -1,0 +1,38 @@
+.box {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.title {
+  color: rgba(66, 79, 94, 1);
+  text-align: center;
+  margin-bottom: 27px;
+}
+
+.input {
+  margin-bottom: 8px;
+}
+
+.polical {
+  margin: 115px 0 35px;
+}
+
+.polical .policalBox {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.polical .link {
+  max-width: 375px;
+  margin-left: 10px;
+  font-size: 16px;
+  line-height: 20.51px;
+  color: rgba(66, 79, 94, 1);
+}
+
+.polical .link a {
+  color: rgba(66, 79, 94, 1);
+  text-decoration: underline;
+}

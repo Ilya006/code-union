@@ -1,8 +1,8 @@
 import React from 'react'
 
-import { SearchRestaurant, SignIn } from 'features'
+import { SearchRestaurant } from 'features'
 import { Header } from 'widgets/header'
-import { Container, Card, Modal } from 'shared/ui'
+import { Container, Card } from 'shared/ui'
 import styles from './Home.module.css'
 
 export const Home = () => (
@@ -35,9 +35,5 @@ export const Home = () => (
         </Container>
       </section>
     </main>
-
-    <Modal open>
-      <SignIn />
-    </Modal>
   </>
 )
