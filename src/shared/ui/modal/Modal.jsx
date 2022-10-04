@@ -22,7 +22,7 @@ export const Modal = ({ children, open, onClose }) => {
     if (!isShow && !hasTransitionedIn) {
       onClose()
     }
-  }, [isShow, hasTransitionedIn])
+  }, [isShow, hasTransitionedIn, onClose])
 
   if (!open && !hasTransitionedIn) return null
 

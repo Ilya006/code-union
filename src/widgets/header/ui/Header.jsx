@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Container, Button, Modal } from 'shared/ui'
 import { SignIn, SignUp } from 'features'
 import styles from './Header.module.css'
