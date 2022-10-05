@@ -1,18 +1,18 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Container, Button, Modal } from 'shared/ui'
 import { SignIn, SignUp } from 'features'
 import styles from './Header.module.css'
 
 const modals = {
-  Регистрация: <SignUp />,
-  Войти: <SignIn />,
+  'signUp': <SignUp />,
+  'signIn': <SignIn />,
 }
 
 export const Header = () => {
   const [formModal, setFormModal] = useState('')
 
   const onOpenModal = (e) => {
-    setFormModal(e.target.innerText)
+    setFormModal(e.target.id)
   }
 
   return (
@@ -21,15 +21,15 @@ export const Header = () => {
         <Container>
           <nav className={styles.nav}>
             <Button transparent>Главная</Button>
-            <Button transparent onClick={onOpenModal}>
+            <Button transparent id='signUp' onClick={onOpenModal}>
               Регистрация
             </Button>
-            <Button onClick={onOpenModal}>Войти</Button>
+            <Button id='signIn' onClick={onOpenModal}>Войти</Button>
           </nav>
         </Container>
       </header>
 
-      <Modal open={!!formModal} onClose={() => setFormModal('')}>
+      <Modal open={!!formModal} onClose={setFormModal}>
         {formModal && modals[formModal]}
       </Modal>
     </>

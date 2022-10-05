@@ -4,6 +4,7 @@ import styles from './Button.module.css'
 
 export const Button = (props) => {
   const {
+    id,
     children,
     type = 'button',
     disabled = false,
@@ -14,6 +15,7 @@ export const Button = (props) => {
 
   return (
     <button
+      id={id}
       onClick={onClick}
       type={type}
       disabled={disabled}
