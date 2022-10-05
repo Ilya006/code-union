@@ -36,3 +36,7 @@
   color: rgba(66, 79, 94, 1);
   text-decoration: underline;
 }
+
+.error {
+  color: tomato;
+}

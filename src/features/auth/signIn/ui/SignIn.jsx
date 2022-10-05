@@ -6,7 +6,7 @@ import { SignInSchema } from './../lib'
 import styles from './SignIn.module.css'
 
 const initialValues = {
-  email: 'hello',
+  email: '',
   password: '',
 }
 

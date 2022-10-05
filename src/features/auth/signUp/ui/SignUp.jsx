@@ -1,19 +1,26 @@
 import React from 'react'
 import { ErrorMessage, Form, Formik } from 'formik'
+import { apiSignUpFx } from '../api'
 import { TextField, Button, CheckboxField } from 'shared/ui'
 import { SignInSchema } from './../lib'
 import styles from './SignUp.module.css'
+import { createEffect, sample } from 'effector/compat'
 
 const initialValues = {
-  email: 'helldddo@mail.ru',
+  email: '',
   password: '',
   passwordConfirmation: '',
   politicalAgreement: false,
 }
 
 export const SignUp = () => {
-  const handleSubmit = (data) => {
-    console.log(data)
+  const handleSubmit = async (data, actions) => {
+    apiSignUpFx(data)
+    const setError = createEffect((error) => {
+      console.log(error.message)
+      actions.setErrors({ politicalAgreement: error.message })
+    })
+    sample({ clock: apiSignUpFx.failData, target: setError })
   }
 
   return (
@@ -59,13 +66,16 @@ export const SignUp = () => {
               </p>
             </div>
             <ErrorMessage name="politicalAgreement">
-              {(msg) => <span>{msg}</span>}
+              {(msg) => <span className={styles.error}>{msg}</span>}
             </ErrorMessage>
           </div>
 
           <Button type="submit" size="full">
             Войти
           </Button>
+          <ErrorMessage name="commonError">
+            {(msg) => <span className={styles.error}>{msg}</span>}
+          </ErrorMessage>
         </Form>
       </Formik>
     </div>
