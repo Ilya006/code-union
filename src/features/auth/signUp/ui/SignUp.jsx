@@ -1,10 +1,10 @@
 import React from 'react'
 import { ErrorMessage, Form, Formik } from 'formik'
-import { apiSignUpFx } from '../api'
+import { createEffect, sample } from 'effector/compat'
 import { TextField, Button, CheckboxField } from 'shared/ui'
+import { $signUpError, handleSubmitFx } from '../model'
 import { SignInSchema } from './../lib'
 import styles from './SignUp.module.css'
-import { createEffect, sample } from 'effector/compat'
 
 const initialValues = {
   email: '',
@@ -15,12 +15,15 @@ const initialValues = {
 
 export const SignUp = () => {
   const handleSubmit = async (data, actions) => {
-    apiSignUpFx(data)
-    const setError = createEffect((error) => {
-      console.log(error.message)
-      actions.setErrors({ politicalAgreement: error.message })
+    const { email, password } = data
+    handleSubmitFx({ email, password })
+
+    // Catch error
+    const setErrorFx = createEffect((value) => actions.setErrors(value))
+    sample({
+      clock: $signUpError,
+      target: setErrorFx,
     })
-    sample({ clock: apiSignUpFx.failData, target: setError })
   }
 
   return (
@@ -41,7 +44,6 @@ export const SignUp = () => {
             name="password"
             type="password"
             placeholder="Пароль"
-            autoComplete="off"
             className={styles.input}
           />
           <TextField
