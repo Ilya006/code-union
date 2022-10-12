@@ -2,9 +2,10 @@ import React from 'react'
 import { ErrorMessage, Form, Formik } from 'formik'
 import { createEffect, sample } from 'effector/compat'
 import { TextField, Button, CheckboxField } from 'shared/ui'
-import { $signUpError, handleSubmitFx } from '../model'
+import { $signUpError, $signUpLoad, handleSubmitFx } from '../model'
 import { SignInSchema } from './../lib'
 import styles from './SignUp.module.css'
+import { useStore } from 'effector-react'
 
 const initialValues = {
   email: '',
@@ -14,6 +15,8 @@ const initialValues = {
 }
 
 export const SignUp = () => {
+  const loading = useStore($signUpLoad)
+
   const handleSubmit = async (data, actions) => {
     const { email, password } = data
     handleSubmitFx({ email, password })
@@ -72,7 +75,7 @@ export const SignUp = () => {
             </ErrorMessage>
           </div>
 
-          <Button type="submit" size="full">
+          <Button type="submit" size="full" disabled={loading}>
             Войти
           </Button>
           <ErrorMessage name="commonError">
