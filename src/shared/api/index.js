@@ -1,2 +1,2 @@
 export * from './axiosInstances'
-export * from './session'
+export * from './interceptors'

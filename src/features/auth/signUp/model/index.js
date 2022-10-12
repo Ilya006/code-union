@@ -1,10 +1,10 @@
 import { createEffect, createStore, sample } from 'effector/compat'
+import { updateViewer } from 'entities/viewer'
 import { signUp } from '../api'
 import { errorCodes } from '../lib'
 
 export const handleSubmitFx = createEffect(signUp)
 export const $signUpError = createStore({})
-export const $viewer = createStore({})
 export const $isDoneSignUp = createStore(false)
 export const $signUpLoad = handleSubmitFx.pending
 
@@ -21,8 +21,8 @@ sample({
 // Successful user registration
 sample({
   clock: handleSubmitFx.doneData,
-  target: $viewer,
+  fn: (_, res) => res.data,
+  target: updateViewer,
 })
 
-$signUpError.watch((data) => console.log(data))
-$viewer.watch((data) => console.log(data))
+// $signUpError.watch((data) => console.log(data))
