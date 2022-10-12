@@ -1,11 +1,11 @@
 import React from 'react'
-import { ErrorMessage, Form, Formik } from 'formik'
+import { useStore } from 'effector-react'
 import { createEffect, sample } from 'effector/compat'
-import { TextField, Button, CheckboxField } from 'shared/ui'
+import { Form, Formik } from 'formik'
+import { TextField, Button, CheckboxField, ErrorMsg } from 'shared/ui'
 import { $signUpError, $signUpLoad, handleSubmitFx } from '../model'
 import { SignInSchema } from './../lib'
 import styles from './SignUp.module.css'
-import { useStore } from 'effector-react'
 
 const initialValues = {
   email: '',
@@ -70,17 +70,13 @@ export const SignUp = () => {
                 </a>
               </p>
             </div>
-            <ErrorMessage name="politicalAgreement">
-              {(msg) => <span className={styles.error}>{msg}</span>}
-            </ErrorMessage>
+            <ErrorMsg name="politicalAgreement" />
           </div>
 
           <Button type="submit" size="full" disabled={loading}>
             Войти
           </Button>
-          <ErrorMessage name="commonError">
-            {(msg) => <span className={styles.error}>{msg}</span>}
-          </ErrorMessage>
+          <ErrorMsg name="commonError" />
         </Form>
       </Formik>
     </div>
