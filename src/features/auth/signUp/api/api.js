@@ -1,4 +1,3 @@
-import { createEffect } from 'effector/compat'
 import { api } from 'shared/api'
 import { routes } from './routes'
 import { randomNick } from '../lib'

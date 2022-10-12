@@ -13,4 +13,4 @@ sample({
   target: $viewer,
 })
 
-// $viewer.watch((data) => console.log('update User', data))
+$viewer.watch((data) => console.log('update User', data))

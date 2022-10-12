@@ -10,6 +10,7 @@ export const Button = (props) => {
     disabled = false,
     size = 'medium',
     onClick,
+    done = false,
     transparent = false,
   } = props
 
@@ -23,10 +24,11 @@ export const Button = (props) => {
         styles.button,
         { [styles[size]]: size },
         { [styles.disabled]: disabled },
-        { [styles.transparent]: transparent }
+        { [styles.transparent]: transparent },
+        { [styles.done]: done }
       )}
     >
-      {children}
+      {done ? <span className={styles.doneIcon}>&#10004;</span> : children}
     </button>
   )
 }

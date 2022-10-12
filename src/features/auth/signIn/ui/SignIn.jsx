@@ -1,8 +1,17 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Form, Formik } from 'formik'
+import { useStore } from 'effector-react/compat'
+import { createEffect, sample } from 'effector/compat'
 import cn from 'classnames'
-import { TextField, Button } from 'shared/ui'
-import { SignInSchema } from './../lib'
+import { TextField, Button, AnyErrorMsg } from 'shared/ui'
+import {
+  $isDoneSignIn,
+  $signInError,
+  $signUpLoad,
+  handleSubmitFx,
+  resetIsDone,
+} from '../model'
+import { SignInSchema } from '../lib'
 import styles from './SignIn.module.css'
 
 const initialValues = {
@@ -11,9 +20,22 @@ const initialValues = {
 }
 
 export const SignIn = () => {
-  const handleSubmit = (data) => {
-    // console.log(data)
+  const loading = useStore($signUpLoad)
+  const isDone = useStore($isDoneSignIn)
+
+  const handleSubmit = (data, actions) => {
+    handleSubmitFx(data)
+
+    // Catch error
+    const setErrorFx = createEffect((value) => actions.setErrors(value))
+    sample({
+      clock: $signInError,
+      target: setErrorFx,
+    })
   }
+
+  // Reset store isDone
+  useEffect(() => resetIsDone, [resetIsDone])
 
   return (
     <div className={styles.box}>
@@ -36,9 +58,10 @@ export const SignIn = () => {
             autoComplete="off"
             className={styles.input}
           />
-          <Button type="submit" size="full">
+          <Button type="submit" size="full" disabled={loading} done={isDone}>
             Войти
           </Button>
+          <AnyErrorMsg name="signInError" />
         </Form>
       </Formik>
       <span className={styles.btn}>Зарегистрироваться</span>

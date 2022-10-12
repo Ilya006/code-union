@@ -23,8 +23,20 @@
   background-color: #666666;
 }
 
+.button.done {
+  background-color: #31d758;
+}
+
+.button.done .doneIcon {
+  font-size: 1.8rem;
+}
+
 .button:hover {
   background-color: #4590e6;
+}
+
+.button.done:hover {
+  background-color: #2ac94f;
 }
 
 /* size */

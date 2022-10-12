@@ -1,9 +1,21 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useStore } from 'effector-react'
 import { createEffect, sample } from 'effector/compat'
 import { Form, Formik } from 'formik'
-import { TextField, Button, CheckboxField, ErrorMsg } from 'shared/ui'
-import { $signUpError, $signUpLoad, handleSubmitFx } from '../model'
+import {
+  TextField,
+  Button,
+  CheckboxField,
+  FieldErrorMsg,
+  AnyErrorMsg,
+} from 'shared/ui'
+import {
+  $isDoneSignUp,
+  $signUpError,
+  $signUpLoad,
+  handleSubmitFx,
+  resetIsDone,
+} from '../model'
 import { SignInSchema } from './../lib'
 import styles from './SignUp.module.css'
 
@@ -16,6 +28,7 @@ const initialValues = {
 
 export const SignUp = () => {
   const loading = useStore($signUpLoad)
+  const isDone = useStore($isDoneSignUp)
 
   const handleSubmit = async (data, actions) => {
     const { email, password } = data
@@ -28,6 +41,9 @@ export const SignUp = () => {
       target: setErrorFx,
     })
   }
+
+  // Reset store isDone
+  useEffect(() => resetIsDone, [resetIsDone])
 
   return (
     <div className={styles.box}>
@@ -70,13 +86,13 @@ export const SignUp = () => {
                 </a>
               </p>
             </div>
-            <ErrorMsg name="politicalAgreement" />
+            <FieldErrorMsg name="politicalAgreement" />
           </div>
 
-          <Button type="submit" size="full" disabled={loading}>
+          <Button type="submit" size="full" disabled={loading} done={isDone}>
             Войти
           </Button>
-          <ErrorMsg name="commonError" />
+          <AnyErrorMsg name="signUpError" />
         </Form>
       </Formik>
     </div>

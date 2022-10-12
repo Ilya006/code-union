@@ -1,5 +1,5 @@
 export const errorCodes = {
   "Couldn't register user!": {
-    email: 'Не удалось зарегестрировать пользователя',
+    signUpError: 'Не удалось зарегестрировать пользователя',
   },
 }
