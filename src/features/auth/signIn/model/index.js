@@ -20,7 +20,7 @@ sample({
 sample({
   clock: handleSubmitFx.failData,
   fn: (_, data) => {
-    const message = data.response.data.message
+    const message = data.response.data.message ?? 'Unknow Error'
     return errorCodes[message] || { signInError: 'Неизвестная ошибка' }
   },
   target: $signInError,
