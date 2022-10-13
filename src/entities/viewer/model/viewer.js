@@ -1,4 +1,5 @@
-import { createStore, createEvent, sample } from 'effector/compat'
+import { createStore, createEvent, sample, createEffect } from 'effector/compat'
+import { api } from 'shared/api'
 
 export const $viewer = createStore({})
 export const $IsAuthenticated = $viewer.map((data) => !!data.tokens)
@@ -13,4 +14,18 @@ sample({
   target: $viewer,
 })
 
-// $viewer.watch((data) => console.log('update User', data))
+// TEMPORARY IMPLEMENTATION
+// Add an axios token on every request to the server
+const setTokenAxiosFx = createEffect((token) => {
+  api.interceptors.request.use((config) => {
+    config.headers['Authorization'] = token
+    return config
+  })
+})
+
+sample({
+  clock: $token,
+  target: setTokenAxiosFx,
+})
+
+// $viewer.watch((data) => console.log('update User: ', data))
