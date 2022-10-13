@@ -1,1 +1,1 @@
-export * from './model'
+export { ListRestaurants } from './ui'

@@ -2,7 +2,7 @@ import { Form, Formik } from 'formik'
 import React from 'react'
 import { TextField, Button } from 'shared/ui'
 import { ReactComponent as Icon } from './assets/search.svg'
-import styles from './Search.module.css'
+import styles from './SearchRestaurant.module.css'
 
 export const SearchRestaurant = () => {
   const handleSubmit = (data) => {

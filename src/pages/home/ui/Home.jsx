@@ -1,20 +1,11 @@
-import React, { useEffect } from 'react'
-import { useStore } from 'effector-react/compat'
-
+import React from 'react'
 import { Header } from 'widgets/header'
-import { getRestaurants } from 'entities/restaurants'
-import { $IsAuthenticated } from 'entities/viewer'
-import { SearchRestaurant } from 'features'
-import { Container, Card, Button } from 'shared/ui'
+import { Container, Button } from 'shared/ui'
 import styles from './Home.module.css'
+import { SearchRestaurant } from 'features'
+import { ListRestaurants } from 'entities/restaurants'
 
 export const Home = () => {
-  const isAuth = useStore($IsAuthenticated)
-
-  const onclick = () => {
-    getRestaurants()
-  }
-
   return (
     <>
       <Header />
@@ -33,14 +24,7 @@ export const Home = () => {
               Предложения, которые любят наши клиенты
             </p>
             <div className={styles.list}>
-              <Card text="Один из крупнейших ресторанов.." />
-              <Card text="Один из крупнейших ресторанов.." />
-              <Card text="Один из крупнейших ресторанов.." />
-              <Card text="Один из крупнейших ресторанов.." />
-              <Card text="Один из крупнейших ресторанов.." />
-              <Card text="Один из крупнейших ресторанов.." />
-              <Card text="Один из крупнейших ресторанов.." />
-              <Card text="Один из крупнейших ресторанов.." />
+              <ListRestaurants />
             </div>
           </Container>
         </section>

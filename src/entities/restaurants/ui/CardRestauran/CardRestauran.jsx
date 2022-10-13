@@ -1,9 +1,10 @@
 import React from 'react'
 import { Button } from 'shared/ui'
 import { ReactComponent as LocationImg } from './assets/location.svg'
-import styles from './Card.module.css'
+import styles from './CardRestauran.module.css'
 
-export const Card = (props) => {
+export const CardRestauran = (props) => {
+  console.log(props)
   return (
     <div className={styles.box}>
       <div className={styles.picture}>
@@ -12,7 +13,7 @@ export const Card = (props) => {
           alt=""
         />
       </div>
-      <div className={styles.info}>
+      {/* <div className={styles.info}>
         <h4>Infinity Plaza</h4>
         <span className={styles.location}>
           <LocationImg />
@@ -21,7 +22,7 @@ export const Card = (props) => {
         <p className={styles.description}>{props.text}</p>
         <span className={styles.price}>от $56 000 000</span>
         <Button>Подробнее</Button>
-      </div>
+      </div> */}
     </div>
   )
 }
