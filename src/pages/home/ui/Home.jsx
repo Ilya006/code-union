@@ -1,11 +1,23 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useStore } from 'effector-react/compat'
+
 import { Header } from 'widgets/header'
+import { SearchRestaurant } from 'features'
+import { ListRestaurants, restaurantsModel } from 'entities/restaurants'
+import { $IsAuthenticated } from 'entities/viewer'
 import { Container, Button } from 'shared/ui'
 import styles from './Home.module.css'
-import { SearchRestaurant } from 'features'
-import { ListRestaurants } from 'entities/restaurants'
+import { setIsFiltering } from 'entities/restaurants/model/restaurants'
 
 export const Home = () => {
+  const isAuth = useStore($IsAuthenticated)
+
+  useEffect(() => {
+    if(isAuth) {
+      restaurantsModel.getRestaurants()
+    }
+  }, [isAuth])
+
   return (
     <>
       <Header />
@@ -29,8 +41,6 @@ export const Home = () => {
           </Container>
         </section>
       </main>
-
-      <Button onClick={onclick}>посты</Button>
     </>
   )
 }

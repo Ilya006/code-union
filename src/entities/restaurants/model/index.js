@@ -1,1 +1,1 @@
-export * from './restaurants'
+export { getRestaurants, setIsFiltering, $allRestaurants, $showRestaurantsId } from './restaurants'

@@ -1,12 +1,12 @@
 import { useStore } from 'effector-react/compat'
 import React from 'react'
 import { CardRestauran } from '../CardRestauran'
-import { $allRestaurants } from './../../model/restaurants'
+import { $showRestaurantsId } from './../../model/restaurants'
 
 export const ListRestaurants = () => {
-  const allRestaurants = useStore($allRestaurants)
+  const ids = useStore($showRestaurantsId)
 
-  return allRestaurants.map((rest) => (
-    <CardRestauran key={rest.id} data={rest} />
+  return ids.map((id) => (
+    <CardRestauran key={id} id={id} />
   ))
 }
