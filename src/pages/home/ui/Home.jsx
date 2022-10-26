@@ -5,16 +5,15 @@ import { Header } from 'widgets/header'
 import { SearchRestaurant } from 'features'
 import { ListRestaurants, restaurantsModel } from 'entities/restaurants'
 import { $IsAuthenticated } from 'entities/viewer'
-import { Container, Button } from 'shared/ui'
+import { Container } from 'shared/ui'
 import styles from './Home.module.css'
-import { setIsFiltering } from 'entities/restaurants/model/restaurants'
 
 export const Home = () => {
   const isAuth = useStore($IsAuthenticated)
 
   useEffect(() => {
-    if(isAuth) {
-      restaurantsModel.getRestaurants()
+    if (isAuth) {
+      restaurantsModel.pageMounted()
     }
   }, [isAuth])
 
@@ -31,10 +30,16 @@ export const Home = () => {
 
         <section className={styles.sentence}>
           <Container>
-            <h2>Популярные предложения</h2>
-            <p className={styles.subtitle}>
-              Предложения, которые любят наши клиенты
-            </p>
+            {isAuth ? (
+              <>
+                <h2>Популярные предложения</h2>
+                <p className={styles.subtitle}>
+                  Предложения, которые любят наши клиенты
+                </p>
+              </>
+            ) : (
+              <h2>Пожалуйста авторизуйтесь!</h2>
+            )}
             <div className={styles.list}>
               <ListRestaurants />
             </div>

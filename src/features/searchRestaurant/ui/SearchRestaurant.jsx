@@ -1,6 +1,6 @@
 import React from 'react'
 import { Form, Formik } from 'formik'
-import { searchRestaurants, setIsFiltering } from 'entities/restaurants/model'
+import { searchRestaurants } from 'entities/restaurants/model'
 import { TextField, Button } from 'shared/ui'
 import { ReactComponent as Icon } from './assets/search.svg'
 import styles from './SearchRestaurant.module.css'
@@ -12,10 +12,9 @@ const initialValues = {
 export const SearchRestaurant = () => {
   const handleSubmit = (data) => {
     if (!!data.search) {
-      setIsFiltering(true)
       searchRestaurants(data.search)
     } else {
-      setIsFiltering(false)
+      searchRestaurants('')
     }
   }
 

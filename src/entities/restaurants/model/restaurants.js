@@ -3,25 +3,26 @@ import { fetchRestaurants } from '../api'
 
 const fetchRestaurantsFx = createEffect(fetchRestaurants)
 
-export const $allRestaurants = createStore([])
 export const $showRestaurantsId = createStore([])
-export const $isFiltering = createStore(false)
+// Создаем стор id всех ресторанов, чтобы при сбросе фильтров не пересоздавать новый массив id
 
-export const getRestaurants = createEvent()
-export const setIsFiltering = createEvent()
+export const $allRestaurants = createStore([])
+const $allRestaurantsId = $allRestaurants.map((store) =>
+  store.map((item) => item.id)
+)
+
+export const pageMounted = createEvent()
 export const searchRestaurants = createEvent()
+export const resetFilters = createEvent()
 const setAllRestaurants = createEvent()
 const setShowRestaurantsId = createEvent()
 
 // Change show store of Restaurants id
 $showRestaurantsId.on(setShowRestaurantsId, (_, payload) => payload)
 
-// Change the filtering flag
-$isFiltering.on(setIsFiltering, (_, payload) => payload)
-
 // Get All restaurants
 sample({
-  clock: getRestaurants,
+  clock: pageMounted,
   fn: (data) => data ?? { page: 1, perPage: 10 },
   target: fetchRestaurantsFx,
 })
@@ -38,25 +39,20 @@ $allRestaurants.on(setAllRestaurants, (store, payload) => [
   ...payload,
 ])
 
-// Show All Restaurants
+// Set show all restaurants or reset filter
 sample({
-  clock: [$allRestaurants, $isFiltering],
-  source: { allRestaurants: $allRestaurants, isFiltering: $isFiltering },
-  filter: (sourseData) => !sourseData.isFiltering,
-  fn: (sourseData) => {
-    console.log('sourseData', sourseData)
-    return sourseData.allRestaurants.map((item) => item.id)
-  },
+  clock: [$allRestaurantsId, resetFilters],
+  source: $allRestaurantsId,
+  fn: (sourseData) => sourseData,
   target: setShowRestaurantsId,
 })
 
 // Set found restaurants
 sample({
   clock: searchRestaurants,
-  source: { isFiltering: $isFiltering, allRestaurants: $allRestaurants },
-  filter: (sourseData) => sourseData,
+  source: $allRestaurants,
   fn: (sourseData, clockData) => {
-    return sourseData.allRestaurants
+    return sourseData
       .filter(
         (item) =>
           item.title.includes(clockData) ||
@@ -70,4 +66,4 @@ sample({
 
 $allRestaurants.watch((data) => console.log('all Restaurants', data))
 $showRestaurantsId.watch((data) => console.log('$showRestaurantsId', data))
-$isFiltering.watch((data) => console.log('$isFiltering', data))
+$allRestaurantsId.watch((data) => console.log('$allRestaurantsId', data))

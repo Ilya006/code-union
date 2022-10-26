@@ -1,7 +1,7 @@
 export {
-  getRestaurants,
-  setIsFiltering,
-  searchRestaurants,
   $allRestaurants,
   $showRestaurantsId,
+  pageMounted,
+  searchRestaurants,
+  resetFilters,
 } from './restaurants'
