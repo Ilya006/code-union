@@ -8,13 +8,10 @@ export const $token = $viewer.map((data) =>
 )
 export const updateViewer = createEvent()
 
-// Update user data
-sample({
-  clock: updateViewer,
-  target: $viewer,
-})
+// Set user data
+$viewer.on(updateViewer, (_, payload) => payload)
 
-// TEMPORARY IMPLEMENTATION
+// TEMPORARY SOLUTION
 // Add an axios token on every request to the server
 const setTokenAxiosFx = createEffect((token) => {
   api.interceptors.request.use((config) => {

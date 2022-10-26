@@ -1,13 +1,16 @@
 import { createStore, createEffect, sample, createEvent } from 'effector/compat'
 import { fetchRestaurants } from '../api'
 
-export const fetchRestaurantsFx = createEffect(fetchRestaurants)
+const fetchRestaurantsFx = createEffect(fetchRestaurants)
+
 export const $allRestaurants = createStore([])
 export const $showRestaurantsId = createStore([])
-export const $isFiltering = createStore(true)
+const $isFiltering = createStore(true)
 
 export const getRestaurants = createEvent()
 export const setIsFiltering = createEvent()
+const setAllRestaurants = createEvent()
+const setShowRestaurantsId = createEvent()
 
 // Get restaurants
 sample({
@@ -18,24 +21,28 @@ sample({
 
 sample({
   clock: fetchRestaurantsFx.doneData,
+  filter: (_, res) => res.data.restaurants.length > 0,
   fn: (_, res) => res.data.restaurants,
-  target: $allRestaurants,
+  target: setAllRestaurants
 })
+
+$allRestaurants.on(setAllRestaurants, (store, payload) => ([...store, ...payload]))
+
 
 // Show all Restaurants
 sample({
-  clock: [$allRestaurants],
+  clock: $allRestaurants,
   source: $isFiltering,
-  filter: (sourseData) => sourseData, 
+  filter: (sourseData) => sourseData,
   fn: (_, data) => data.map(item => item.id),
-  target: $showRestaurantsId
+  target: setShowRestaurantsId
 })
 
+$showRestaurantsId.on(setShowRestaurantsId, (store, payload) => payload)
+
+
 // Change the filtering flag
-sample({
-  clock: setIsFiltering,
-  target: $isFiltering
-})
+$isFiltering.on(setIsFiltering, (_, payload) => payload)
 
 
 $allRestaurants.watch((data) => console.log('all Restaurants', data))
