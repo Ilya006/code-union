@@ -1,1 +1,7 @@
-export { getRestaurants, setIsFiltering, $allRestaurants, $showRestaurantsId } from './restaurants'
+export {
+  getRestaurants,
+  setIsFiltering,
+  searchRestaurants,
+  $allRestaurants,
+  $showRestaurantsId,
+} from './restaurants'

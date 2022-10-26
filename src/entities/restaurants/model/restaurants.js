@@ -5,14 +5,21 @@ const fetchRestaurantsFx = createEffect(fetchRestaurants)
 
 export const $allRestaurants = createStore([])
 export const $showRestaurantsId = createStore([])
-const $isFiltering = createStore(true)
+export const $isFiltering = createStore(false)
 
 export const getRestaurants = createEvent()
 export const setIsFiltering = createEvent()
+export const searchRestaurants = createEvent()
 const setAllRestaurants = createEvent()
 const setShowRestaurantsId = createEvent()
 
-// Get restaurants
+// Change show store of Restaurants id
+$showRestaurantsId.on(setShowRestaurantsId, (_, payload) => payload)
+
+// Change the filtering flag
+$isFiltering.on(setIsFiltering, (_, payload) => payload)
+
+// Get All restaurants
 sample({
   clock: getRestaurants,
   fn: (data) => data ?? { page: 1, perPage: 10 },
@@ -20,30 +27,47 @@ sample({
 })
 
 sample({
-  clock: fetchRestaurantsFx.doneData,
+  clock: [fetchRestaurantsFx.doneData],
   filter: (_, res) => res.data.restaurants.length > 0,
   fn: (_, res) => res.data.restaurants,
-  target: setAllRestaurants
+  target: setAllRestaurants,
 })
 
-$allRestaurants.on(setAllRestaurants, (store, payload) => ([...store, ...payload]))
+$allRestaurants.on(setAllRestaurants, (store, payload) => [
+  ...store,
+  ...payload,
+])
 
-
-// Show all Restaurants
+// Show All Restaurants
 sample({
-  clock: $allRestaurants,
-  source: $isFiltering,
-  filter: (sourseData) => sourseData,
-  fn: (_, data) => data.map(item => item.id),
-  target: setShowRestaurantsId
+  clock: [$allRestaurants, $isFiltering],
+  source: { allRestaurants: $allRestaurants, isFiltering: $isFiltering },
+  filter: (sourseData) => !sourseData.isFiltering,
+  fn: (sourseData) => {
+    console.log('sourseData', sourseData)
+    return sourseData.allRestaurants.map((item) => item.id)
+  },
+  target: setShowRestaurantsId,
 })
 
-$showRestaurantsId.on(setShowRestaurantsId, (store, payload) => payload)
-
-
-// Change the filtering flag
-$isFiltering.on(setIsFiltering, (_, payload) => payload)
-
+// Set found restaurants
+sample({
+  clock: searchRestaurants,
+  source: { isFiltering: $isFiltering, allRestaurants: $allRestaurants },
+  filter: (sourseData) => sourseData,
+  fn: (sourseData, clockData) => {
+    return sourseData.allRestaurants
+      .filter(
+        (item) =>
+          item.title.includes(clockData) ||
+          item.description.includes(clockData) ||
+          item.coords.address_name.includes(clockData)
+      )
+      .map((item) => item.id)
+  },
+  target: setShowRestaurantsId,
+})
 
 $allRestaurants.watch((data) => console.log('all Restaurants', data))
 $showRestaurantsId.watch((data) => console.log('$showRestaurantsId', data))
+$isFiltering.watch((data) => console.log('$isFiltering', data))
