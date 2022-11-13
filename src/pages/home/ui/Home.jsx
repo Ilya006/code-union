@@ -20,6 +20,7 @@ export const Home = () => {
   return (
     <>
       <Header />
+      <h2>hello</h2>
       <main className={styles.main}>
         <section className={styles.hero}>
           <Container>
