@@ -1,6 +1,6 @@
 import React from 'react'
 import cn from 'classnames'
-import styles from './Button.module.css'
+import styles from './button.module.css'
 
 export const Button = (props) => {
   const {
@@ -23,7 +23,6 @@ export const Button = (props) => {
       className={cn(
         styles.button,
         { [styles[size]]: size },
-        { [styles.disabled]: disabled },
         { [styles.transparent]: transparent },
         { [styles.done]: done }
       )}
